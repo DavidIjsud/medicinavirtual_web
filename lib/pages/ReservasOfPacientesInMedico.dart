@@ -44,24 +44,27 @@ class _ListOfReservasOfPacientesState extends State<ListOfReservasOfPacientes> {
                                               return Card(
                                                 elevation: 10,
 
-                                                child: Column(
-                                                      children: [
-                                                           Text("Dia: " + asyncSnapshot.data.data[index].fecha ),
-                                                           Text("Hora: "+ asyncSnapshot.data.data[index].hora  ),
-                                                           Text("Enlace: "+ (asyncSnapshot.data.data[index].enlace.isNotEmpty ?  asyncSnapshot.data.data[index].enlace  : "No se aprobo la cita" )),
-                                                           Text( "Paciente: "+ asyncSnapshot.data.data[index].paciente.nombres + " " + asyncSnapshot.data.data[index].paciente.apellidos  ),
-                                                           Text("Foto:"),
-                                                           Container(
-                                                               width: 200,
-                                                               height: 200,
-                                                               child: Image.network( asyncSnapshot.data.data[index].paciente.foto ),
-                                                           ),
-                                                           Row(
-                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                              children: [
-                                                                 asyncSnapshot.data.data[index].enlace != "" ? 
-                                                                   Center(child: ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.one_k) , label: Text("ENTRAR A LA REUNION")  ))
-                                                                   : Center(child: ElevatedButton.icon(onPressed: (){
+                                                child:  Row(
+                                                    children: [
+
+                                                        SizedBox( width: 70, ),
+                                                        Column(
+                                                            children: [
+                                                                Container(
+                                                                  width: 200,
+                                                                  height: 200,
+                                                                  child: Image.network( asyncSnapshot.data.data[index].paciente.foto ),
+                                                              )
+                                                            ],
+                                                        ),
+                                                        SizedBox( width: 50, ),
+                                                        Column(
+                                                            children: [
+                                                                  Text("Dia: " + asyncSnapshot.data.data[index].fecha ),
+                                                                  Text("Hora: "+ asyncSnapshot.data.data[index].hora  ),
+                                                                  Text("Enlace: "+ (asyncSnapshot.data.data[index].enlace.isNotEmpty ?  asyncSnapshot.data.data[index].enlace  : "No se aprobo la cita" )),
+                                                                  Text( "Paciente: "+ asyncSnapshot.data.data[index].paciente.nombres + " " + asyncSnapshot.data.data[index].paciente.apellidos  ),
+                                                                   Center(child: ElevatedButton.icon(onPressed: (){
                                                                      
                                                                       Map<String, dynamic> informacionMedico = {
                                                                            "fecha" : asyncSnapshot.data.data[index].fecha,
@@ -78,10 +81,11 @@ class _ListOfReservasOfPacientesState extends State<ListOfReservasOfPacientes> {
                                                                       widget.widgetChangeNotifier.changeWidget( PacienteEspecifico( informacionpaciente: informacionMedico  ,widgetChangeNotifier: widget.widgetChangeNotifier , ) );
 
                                                                    }, icon: Icon(Icons.open_in_browser) , label: Text("VER MAS")))
-                                                              ],
-                                                           ),
-                                                      ],
-                                                ),
+                                                            ],
+                                                        ),
+                                                          
+                                                    ],
+                                                ), 
                                               );
                                            }
                                         );

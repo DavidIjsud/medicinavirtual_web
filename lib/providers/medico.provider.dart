@@ -56,7 +56,7 @@ class MedicoProvider{
   }
 
   static Future<bool> aprobarCita( int idReserva ) async{
-
+      print("Id Reserva "+ idReserva.toString() );
       var url = Uri.parse("https://nestjswebservicesapp.herokuapp.com/reserva/aprobar/" + idReserva.toString() );
       var response ;
       try {
