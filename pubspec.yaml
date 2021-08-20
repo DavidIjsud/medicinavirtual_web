@@ -36,6 +36,7 @@ dependencies:
   file_picker_cross: ^4.4.2  
   change_notifier_builder: ^1.1.2
   jitsi_meet: ^4.0.0
+  web_socket_channel: ^2.1.0
 
 dev_dependencies:
   flutter_test:

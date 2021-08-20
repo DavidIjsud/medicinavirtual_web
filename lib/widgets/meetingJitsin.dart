@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:topicowebflutter3/providers/widgetChange.Notifier.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 
 
@@ -25,12 +26,15 @@ class _MeetingState extends State<Meeting> {
   final roomText = TextEditingController(text: "plugintestroom");
   final subjectText = TextEditingController(text: "My Plugin Test Meeting");
   final nameText = TextEditingController(text: "");
-  final emailText = TextEditingController(text: "fake@email.com");
+  final consultaText = TextEditingController(text: "");
   final iosAppBarRGBAColor =
       TextEditingController(text: "#0080FF80"); //transparent blue
   bool isAudioOnly = true;
   bool isAudioMuted = true;
   bool isVideoMuted = true;
+   final _channel = WebSocketChannel.connect(
+             Uri.parse('wss://nestjswebservicesapp.herokuapp.com/socket.io/?EIO=4&transport=websocket'),
+    );
 
   @override
   void initState() {
@@ -129,6 +133,7 @@ class _MeetingState extends State<Meeting> {
             height: 10.0,
           ),
           TextField(
+            controller: this.consultaText,
             keyboardType: TextInputType.multiline,
             maxLines: 20,
             decoration: InputDecoration(
@@ -142,7 +147,16 @@ class _MeetingState extends State<Meeting> {
             width: double.maxFinite,
             child: ElevatedButton(
                 onPressed: () {
-
+                  try {
+                        if( this.consultaText.text != "" ){
+                          this._channel.sink.add(this.consultaText.text);
+                          print("Entra");
+                        }else{
+                          print("No entra");
+                        }
+                  } catch (e) {
+                    print("Socket "+e);
+                  }
                 },
                 child: Text(
                   "Guardar y enviar receta",
